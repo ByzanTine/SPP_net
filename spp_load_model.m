@@ -42,6 +42,7 @@ if exist('use_gpu', 'var') && ~use_gpu
   caffe('set_mode_cpu');
 else
   caffe('set_mode_gpu');
+  caffe('set_device', 1);
 end
 caffe('set_phase_test');
 spp_model.cnn.layers = caffe('get_weights');

@@ -42,12 +42,14 @@ opts.with_selective_search  = true;
 opts.with_edge_box          = false;
 opts.with_hard_samples      = false;
 
+fprintf('Get Train set init\n');
 % train set
 opts                        = perpare_train_data(opts, opts.flip | opts.flip_finetune);
 opts.feat_cache_train       = {opts.feat_cache};
 opts.imdb_for_negative_mining = [1];
 opts.neg_ovr_threshs        = {[-1, 0.3]};
 
+fprintf('Get Test set init\n');
 % test set
 opts.imdb_test              = imdb_from_voc(opts.devkit, 'test', '2007');
 opts.roidb_test             = opts.imdb_test.roidb_func(opts.imdb_test, opts.with_hard_samples, opts.with_selective_search, opts.with_edge_box);
@@ -58,7 +60,7 @@ opts.gpu_id                 = 1;
 
 % ------------------------------------------------
 g = gpuDevice(opts.gpu_id);
-% 
+fprintf('---Extract features Now---\n'); 
 %% extract last conv feature
 opts = perpare_train_data(opts, opts.flip | opts.flip_finetune);
 spp_exp_cache_features_voc('trainval', opts);
