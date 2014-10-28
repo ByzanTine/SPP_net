@@ -27,6 +27,7 @@ If you find SPP_net useful in your research, please consider citing:
 
 SPP_net is released under the Simplified BSD License for non-commercial use (refer to the LICENSE file for details).
 
+
 ### Installing SPP_net
 
 0. **Prerequisites**
@@ -41,6 +42,10 @@ SPP_net is released under the Simplified BSD License for non-commercial use (ref
   0. You'll be prompted to download the [Selective Search](http://disi.unitn.it/~uijlings/MyHomepage/index.php#page=projects1) code, which we cannot redistribute. Afterwards, you should see the message `SPP_net startup done` followed by the MATLAB prompt `>>`.
   0. Run the build script: `>> spp_build()` (builds [liblinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear/), [Selective Search](http://www.science.uva.nl/research/publications/2013/UijlingsIJCV2013/), spp_pool and nms). Don't worry if you see compiler warnings while building liblinear, this is normal on my system.
   0. Download the model package by run `external\fetch_model_data.m`
+
+### To run VOC
+
+download package data/fetch_model_data.m and data/fetch_ss_data_voc2007.m
  
 ### Training your own SPP_net detector on PASCAL VOC
 

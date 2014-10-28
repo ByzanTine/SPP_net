@@ -10,6 +10,6 @@ fprintf('Unzipping...\n');
 unzip('SPP_net_release1_VOC2007_selective_search_data.zip', '.');
 
 fprintf('Done.\n');
-system('del SPP_net_release1_VOC2007_selective_search_data.zip');
+% system('del SPP_net_release1_VOC2007_selective_search_data.zip');
 
 cd(cur_dir);

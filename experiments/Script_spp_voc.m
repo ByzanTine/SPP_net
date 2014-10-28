@@ -14,9 +14,9 @@ function Script_spp_voc()
 clc;
 % -------------------- CONFIG --------------------
 % model def
-opts.net_file               = fullfile(pwd, 'data\cnn_model\Zeiler_conv5_new\Zeiler_conv5');
-opts.net_def_file           = fullfile(pwd, 'data\cnn_model\Zeiler_conv5_new\Zeiler_spm_scale224_test_conv5.prototxt');
-opts.spp_params_def         = fullfile(pwd, 'data\cnn_model\Zeiler_conv5_new\spp_config');
+opts.net_file               = fullfile(pwd, 'data', 'Zeiler_conv5_new', 'Zeiler_conv5');
+opts.net_def_file           = fullfile(pwd, 'data', 'Zeiler_conv5_new', 'Zeiler_spm_scale224_test_conv5.prototxt');
+opts.spp_params_def         = fullfile(pwd, 'data', 'Zeiler_conv5_new', 'spp_config');
 
 % for feature cache
 opts.feat_cache_copy_from   = 'Zeiler_conv5';
@@ -27,7 +27,7 @@ opts.spm_im_size            = [480 576 688 874 1200];
 opts.flip_finetune          = true;
 opts.finetune_cache_name    = 'Zeiler_conv5_ft(5s_flip)';
 opts.finetune_rst_dir       = fullfile(pwd, 'finetuning', opts.finetune_cache_name);
-opts.finetune_net_def_file  = fullfile(pwd, 'model-defs\pascal_finetune_fc_spm_solver.prototxt');
+opts.finetune_net_def_file  = fullfile(pwd, 'model-defs', 'pascal_finetune_fc_spm_solver.prototxt');
 
 % for svm train and test
 opts.layer                  = 7;
