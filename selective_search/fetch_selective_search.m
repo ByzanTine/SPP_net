@@ -9,6 +9,6 @@ fprintf('Unzipping...\n');
 unzip('SelectiveSearchCodeIJCV.zip');
 
 fprintf('Done.\n');
-system('del SelectiveSearchCodeIJCV.zip');
+% system('del SelectiveSearchCodeIJCV.zip');
 
 cd(cur_dir);
