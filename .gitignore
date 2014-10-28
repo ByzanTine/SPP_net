@@ -45,3 +45,4 @@ Temporary Items
 # matlab mex bin
 *.mex
 *.mex64a
+bin
