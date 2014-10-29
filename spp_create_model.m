@@ -28,10 +28,18 @@ assert(exist(cnn_binary_file, 'file') ~= 0);
 assert(exist(cnn_definition_file, 'file') ~= 0);
 cnn.binary_file = cnn_binary_file;
 cnn.definition_file = cnn_definition_file;
+cnn.batch_size = 128;
+cnn.input_size = 224;
+data_mean_file = './external/intubation_mean.mat';
+ld = load(data_mean_file);
+image_mean = ld.image_mean; clear ld;
+cnn.image_mean = imresize(image_mean, [cnn.input_size cnn.input_size]);
 
 % init empty detectors
 detectors.W = [];
 detectors.B = [];
+detectors.crop_mode = 'warp';
+detectors.crop_padding = 16;
 detectors.nms_thresholds = [];
 
 spp_model.cnn = cnn;
