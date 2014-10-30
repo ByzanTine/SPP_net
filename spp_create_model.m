@@ -29,11 +29,15 @@ assert(exist(cnn_definition_file, 'file') ~= 0);
 cnn.binary_file = cnn_binary_file;
 cnn.definition_file = cnn_definition_file;
 cnn.batch_size = 128;
+cnn.init_key = -1;
 cnn.input_size = 224;
-data_mean_file = './external/intubation_mean.mat';
+data_mean_file = './external/ilsvrc_2012_mean.mat';
+assert(exist(data_mean_file, 'file') ~= 0);
 ld = load(data_mean_file);
 image_mean = ld.image_mean; clear ld;
-cnn.image_mean = imresize(image_mean, [cnn.input_size cnn.input_size]);
+off = floor((size(image_mean,1) - cnn.input_size)/2)+1;
+image_mean = image_mean(off:off+cnn.input_size-1, off:off+cnn.input_size-1, :);
+cnn.image_mean = image_mean;
 
 % init empty detectors
 detectors.W = [];
