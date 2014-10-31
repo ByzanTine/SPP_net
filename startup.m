@@ -28,6 +28,7 @@ else
 end
 addpath(fullfile(curdir,'experiments'));
 addpath(fullfile(curdir,'imdb'));
+addpath(fullfile(curdir,'example'));
 
 mkdir_if_missing(fullfile(curdir, 'bin'));
 mkdir_if_missing(fullfile(curdir, 'cachedir'));

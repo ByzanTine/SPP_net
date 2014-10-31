@@ -45,7 +45,7 @@ parfor batch = 1:num_batches
   ims = zeros(crop_size, crop_size, 3, batch_size, 'single');
   for j = batch_start:batch_end
     bbox = boxes(j,:);
-    crop = rcnn_im_crop(im, bbox, crop_mode, crop_size, ...
+    crop = spp_im_crop(im, bbox, crop_mode, crop_size, ...
         crop_padding, image_mean);
     % swap dims 1 and 2 to make width the fastest dimension (for caffe)
     ims(:,:,:,j-batch_start+1) = permute(crop, [2 1 3]);
