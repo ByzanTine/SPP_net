@@ -22,8 +22,20 @@ fprintf('found %d candidates (in %.3fs).\n', size(boxes,1), toc(th));
 % extract features from candidates (one row per candidate box)
 fprintf('Extracting CNN features from regions...');
 th = tic();
-feat = spp_features(im, boxes, spp_model);
-feat = spp_scale_features(feat, spp_model.training_opts.feat_norm_mean);
+
+feat_cache = [];
+opts.spm_im_size = [480 576 688 874 1200];
+% convert image to feature output by conv5 layer
+d.feat = spp_features_convX(im, opts.spm_im_size, feat_cache, true);
+
+d.feat = spp_features_convX_to_poolX(spp_model.spp_pooler, d.feat, boxes);
+
+%% from here, use fine-tune network
+load('/mnt/neocortex3/scratch/yejiayu/SPP_net_intu/cachedir/Zeiler_conv5_ft(5s_flip)_fc7/intubation_train/spp_model');
+spp_model.cnn.layers = spp_layers_in_gpu(spp_model.cnn.layers);
+d.feat = spp_poolX_to_fcX(d.feat, spp_model.training_opts.layer, spp_model, true);
+
+d.feat = spp_scale_features(d.feat, spp_model.training_opts.feat_norm_mean);
 fprintf('done (in %.3fs).\n', toc(th));
 
 % compute scores for each candidate [num_boxes x num_classes]
