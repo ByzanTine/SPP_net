@@ -7,6 +7,9 @@
 #endif
 #include <vector>
 #include <map>
+
+#define MEX_ARGS int nlhs, mxArray **plhs, int nrhs, const mxArray **prhs
+
 using namespace std;
 
 struct score {
@@ -76,7 +79,7 @@ void nms(const mxArray *input_boxes, double overlap, vector<int> &vPick, int &nP
 }
 
 
-void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])
+void mexFunction(MEX_ARGS)
 {
 	if (nrhs != 2)
 		mexErrMsgTxt("Wrong number of inputs"); 

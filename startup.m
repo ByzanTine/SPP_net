@@ -26,6 +26,7 @@ if exist(fullfile(curdir,'external/caffe/matlab/caffe'), 'dir')
 else
   warning('Please install Caffe in ./external/caffe');
 end
+addpath(fullfile(curdir, 'external/rp'));
 addpath(fullfile(curdir,'experiments'));
 addpath(fullfile(curdir,'imdb'));
 addpath(fullfile(curdir,'example'));

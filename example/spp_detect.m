@@ -1,4 +1,4 @@
-function dets = spp_detect(im, spp_model, thresh)
+function dets = spp_detect(im, configParams, spp_model, spp_ft_model, thresh)
 % AUTORIGHTS
 % ---------------------------------------------------------
 % Copyright (c) 2014, Ross Girshick
@@ -9,14 +9,9 @@ function dets = spp_detect(im, spp_model, thresh)
 % this file (or any portion of it) in your project.
 % ---------------------------------------------------------
 
-% compute selective search candidates
 fprintf('Computing candidate regions...');
 th = tic();
-fast_mode = true;
-im_width = 500;
-boxes = selective_search_boxes(im, fast_mode, im_width);
-% compat: change coordinate order from [y1 x1 y2 x2] to [x1 y1 x2 y2]
-boxes = boxes(:, [2 1 4 3]);
+boxes = RP(im, configParams);
 fprintf('found %d candidates (in %.3fs).\n', size(boxes,1), toc(th));
 
 % extract features from candidates (one row per candidate box)
@@ -29,9 +24,8 @@ opts.spm_im_size = [480 576 688 874 1200];
 d.feat = spp_features_convX(im, opts.spm_im_size, feat_cache, true);
 
 d.feat = spp_features_convX_to_poolX(spp_model.spp_pooler, d.feat, boxes);
-
 %% from here, use fine-tune network
-load('/mnt/neocortex3/scratch/yejiayu/SPP_net_intu/cachedir/Zeiler_conv5_ft(5s_flip)_fc7/intubation_train/spp_model');
+spp_model = spp_ft_model.spp_model;
 spp_model.cnn.layers = spp_layers_in_gpu(spp_model.cnn.layers);
 d.feat = spp_poolX_to_fcX(d.feat, spp_model.training_opts.layer, spp_model, true);
 
@@ -56,3 +50,4 @@ for i = 1:num_classes
   dets{i} = scored_boxes(keep, :);
 end
 fprintf('done (in %.3fs)\n', toc(th));
+reset(g)
